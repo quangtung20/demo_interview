@@ -1,4 +1,4 @@
-## backend
+# backend
 terraform {
   backend "s3" {
     bucket         = "s3statebackend051123tung"
@@ -9,13 +9,13 @@ terraform {
   }
 }
 
-## requester
+# requester
 provider "aws" {
   alias  = "requester"
   region = "us-east-1"
 }
 
-## accepter 
+# accepter 
 provider "aws" {
   alias  = "accepter"
   region = "us-west-1"
