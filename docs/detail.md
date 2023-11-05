@@ -2,7 +2,7 @@
 
 ![diagram](https://github.com/quangtung20/demo_interview/assets/79434671/b42746c3-18ad-4622-b20f-e4eb0e7653d7)
 
-The infrastructure created by Terraform, overview about the project
+The infrastructure created by Terraform, overview about the project:
 
 VPC 1 (us-east-1):
 
@@ -25,12 +25,12 @@ VPC peering connection
 - VPC Attachments to connect both VPCs to VPC peering
 - Route Tables in each VPC routing traffic to VPC peering
 
-backend
+Backend
 
 - s3 bucket
 - dynamo db
 
-
+Detail terraform project: [Terraform](/terraform)
 
 ## Reason why I choose using vpc peering
 - Simple and fast to set up - The connection between VPCs can be easily established.
