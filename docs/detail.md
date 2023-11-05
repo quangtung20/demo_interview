@@ -36,7 +36,7 @@ Detail terraform project: [Terraform](/terraform)
 1.  Clone the repo
 2.  Open repo and run: cd terraform
 3.  Run: terraform init
-4.  Run: terraform apply --auto-approve
+4.  Update resources and run: terraform apply --auto-approve
 
 ## Reason why I choose using vpc peering
 - Simple and fast to set up - The connection between VPCs can be easily established.
