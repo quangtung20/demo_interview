@@ -15,4 +15,6 @@ I have found some options to connect multiple VPCs from different regions. One i
 
 3. Project overview:
 
-This repo presents the solution using VPC Peering to connect 2 VPCs by Terraform, one in region us-east-1, the other in region us-west-1. Details of the solution are in the docs folder, IAC source codes are in the terraform folder.
+This repo presents the solution using VPC Peering to connect 2 VPCs by Terraform, one in region us-east-1, the other in region
+- Refer docs: [Docs](/docs)
+- Refer terraform code: [Terraform](/terraform)
