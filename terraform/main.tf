@@ -8,6 +8,9 @@ module "vpc1" {
   requester_region  = "us-east-1"
   vpc_name          = "vpc1"
   ami               = "ami-05c13eab67c5d8861"
+  providers = {
+    aws = aws.requester
+  }
 }
 
 # create vpc 2 at region us-west-1
@@ -20,6 +23,9 @@ module "vpc2" {
   requester_region  = "us-west-1"
   vpc_name          = "vpc2"
   ami               = "ami-010f8b02680f80998"
+  providers = {
+    aws = aws.accepter
+  }
 }
 
 # create connection between 2 vpcs
@@ -35,6 +41,10 @@ module "connection" {
   accepter_route_table_id  = module.vpc2.route_table_id
   requester_subnet_cidr    = "12.0.4.0/24"
   accpeter_subnet_cidr     = "13.0.4.0/24"
+  providers = {
+    aws.requester = aws.requester
+    aws.accepter  = aws.accepter
+  }
 }
 
 

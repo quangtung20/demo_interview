@@ -4,7 +4,7 @@ resource "aws_vpc_peering_connection" "connection" {
   peer_vpc_id = var.accpeter_vpc_id
   peer_region = var.accepter_region
   auto_accept = false
-  provider    = aws.peer
+  provider    = aws.requester
   tags = {
     "Name" = "peering_connection"
   }
@@ -22,7 +22,7 @@ resource "aws_vpc_peering_connection_accepter" "connection_accepter" {
 
 # route tables
 resource "aws_route" "requester" {
-  provider                  = aws.peer
+  provider                  = aws.requester
   route_table_id            = var.requester_route_table_id
   destination_cidr_block    = var.accpeter_subnet_cidr
   vpc_peering_connection_id = aws_vpc_peering_connection.connection.id

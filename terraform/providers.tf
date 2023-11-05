@@ -1,11 +1,11 @@
 ## requester
 provider "aws" {
-  alias  = "peer"
-  region = var.requester_region
+  alias  = "requester"
+  region = "us-east-1"
 }
 
 ## accepter 
 provider "aws" {
   alias  = "accepter"
-  region = var.accepter_region
+  region = "us-west-1"
 }
