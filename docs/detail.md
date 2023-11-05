@@ -2,24 +2,35 @@
 
 ![diagram](https://github.com/quangtung20/demo_interview/assets/79434671/b42746c3-18ad-4622-b20f-e4eb0e7653d7)
 
-The infrastructure created by Terraform
-VPC 1 (us-east-1):
-  internet gateway for VPC A (support to connect inside EC2 instance)
-  route table to connect subnet to igw and vpc peering
-  public subnet
-  private subnet
-    EC2 instance
+The infrastructure created by Terraform, overview about the project
 
-VPC 2 (us-west-1)
-  internet gateway for VPC B (support to connect inside EC2 instance)
-  route table to connect subnet to igw and vpc peering
-  public subnet
-  private subnet
-    EC2 instance
+VPC 1 (us-east-1):
+
+- internet gateway for VPC A (support to connect inside EC2 instance)
+- route table to connect subnet to igw and vpc peering
+- public subnet
+- private subnet
+  + EC2 instance
+
+VPC 2 (us-west-1):
+
+- internet gateway for VPC B (support to connect inside EC2 instance)
+- route table to connect subnet to igw and vpc peering
+- public subnet
+- private subnet
+  + EC2 instance
 
 VPC peering connection
-VPC Attachments to connect both VPCs to VPC peering
-Route Tables in each VPC routing traffic to VPC peering
+
+- VPC Attachments to connect both VPCs to VPC peering
+- Route Tables in each VPC routing traffic to VPC peering
+
+backend
+
+- s3 bucket
+- dynamo db
+
+
 
 ## Reason why I choose using vpc peering
 - Simple and fast to set up - The connection between VPCs can be easily established.
