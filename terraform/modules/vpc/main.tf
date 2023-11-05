@@ -1,8 +1,4 @@
-provider "aws" {
-  alias  = "region"
-  region = var.requester_region
-}
-
+# create vpc
 resource "aws_vpc" "vpc" {
   provider             = aws.region
   cidr_block           = var.vpc_cidr_block
@@ -12,13 +8,32 @@ resource "aws_vpc" "vpc" {
   }
 }
 
+resource "aws_internet_gateway" "igw" {
+  provider = aws.region
+  vpc_id   = aws_vpc.vpc.id
+  tags = {
+    "Name" = "internet_gateway"
+  }
+}
+
+resource "aws_route_table" "peer_route_table" {
+  provider = aws.region
+  vpc_id   = aws_vpc.vpc.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw.id
+  }
+  tags = {
+    "Name" = "peer_rtb"
+  }
+}
+
 resource "aws_subnet" "public_subnet" {
   provider                = aws.region
-  count                   = length(var.public_subnet)
   vpc_id                  = aws_vpc.vpc.id
   map_public_ip_on_launch = true
-  cidr_block              = var.public_subnet[count.index]
-  availability_zone       = var.availability_zone[count.index]
+  cidr_block              = var.public_subnet
+  availability_zone       = var.availability_zone
   tags = {
     "Name" = "public-subnet"
   }
@@ -26,16 +41,23 @@ resource "aws_subnet" "public_subnet" {
 
 resource "aws_subnet" "private_subnet" {
   provider                = aws.region
-  count                   = length(var.private_subnet)
   vpc_id                  = aws_vpc.vpc.id
   map_public_ip_on_launch = true
-  cidr_block              = var.private_subnet[count.index]
-  availability_zone       = var.availability_zone[count.index]
+  cidr_block              = var.private_subnet
+  availability_zone       = var.availability_zone
   tags = {
     "Name" = "private-subnet"
   }
 }
 
+# associate only private subnet, connecting private subnet with igw to easily connect to EC2 instance
+resource "aws_route_table_association" "peer_association" {
+  provider       = aws.region
+  subnet_id      = aws_subnet.private_subnet.id
+  route_table_id = aws_route_table.peer_route_table.id
+}
+
+# create security group for instance
 resource "aws_security_group" "server-sg" {
   provider    = aws.region
   name        = "server-sg"
@@ -66,6 +88,7 @@ resource "aws_security_group" "server-sg" {
   }
 }
 
+# create ec2 instance
 resource "aws_instance" "ec2-server" {
   provider                    = aws.region
   ami                         = var.ami
@@ -73,16 +96,9 @@ resource "aws_instance" "ec2-server" {
   key_name                    = "interview"
   vpc_security_group_ids      = [aws_security_group.server-sg.id]
   associate_public_ip_address = true
-  subnet_id                   = aws_subnet.private_subnet[0].id
+  subnet_id                   = aws_subnet.private_subnet.id
   tags = {
     Name = "ec2-server"
   }
-  user_data = <<-EOF
-  #!/bin/bash
-  yum update -y
-  yum install -y httpd
-  systemctl start httpd
-  systemctl enable httpd
-  echo "<h1>Hello World from $(hostname -f)</h1>" > /var/www/html/index.html
-  EOF
+  user_data = file("C:/Users/tranq/OneDrive/Documents/project/interview_everfit/terraform/modules/vpc/entry-script.sh")
 }

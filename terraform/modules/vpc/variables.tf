@@ -4,15 +4,15 @@ variable "vpc_cidr_block" {
 }
 
 variable "public_subnet" {
-  type = list(string)
+  type = string
 }
 
 variable "availability_zone" {
-  type = list(string)
+  type = string
 }
 
 variable "private_subnet" {
-  type = list(string)
+  type = string
 }
 
 variable "requester_region" {
