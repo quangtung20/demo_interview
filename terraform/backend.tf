@@ -1,6 +1,6 @@
 # create s3
 resource "aws_s3_bucket" "my_bucket" {
-  bucket = "s3statebackend051123tung"
+  bucket = "s3-statebackend-051123-tung"
   versioning {
     enabled = true
   }

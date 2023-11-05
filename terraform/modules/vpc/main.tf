@@ -54,7 +54,7 @@ resource "aws_route_table_association" "peer_association" {
 # create security group for instance
 resource "aws_security_group" "server-sg" {
   name        = "server-sg"
-  description = "security group server"
+  description = "security group for server"
   vpc_id      = aws_vpc.vpc.id
   ingress {
     description = "SSH access"
