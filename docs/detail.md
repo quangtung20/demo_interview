@@ -39,6 +39,8 @@ In summary, VPC Peering offers a straightforward way to enable private, high-spe
 
 ## final result:
 VPC 1 to VPC 2:
+
 ![image](https://github.com/quangtung20/demo_interview/assets/79434671/38529306-e6c7-4e4b-a7dc-6c5680c3ee8e)
 VPC 2 to VPC 1:
+
 ![image](https://github.com/quangtung20/demo_interview/assets/79434671/873299c3-3d1c-437f-9f9d-1392dfcb6b3d)
